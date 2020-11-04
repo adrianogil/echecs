@@ -1,0 +1,2 @@
+# echecs
+Small echecs game
