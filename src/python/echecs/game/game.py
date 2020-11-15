@@ -6,4 +6,4 @@ class Game:
         self.game_state = GameState()
 
     def show_board(self):
-        self.game_state.print_board()
+        self.game_state.print_state()
