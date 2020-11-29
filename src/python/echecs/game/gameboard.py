@@ -67,10 +67,30 @@ class GameBoard:
     def verify_valid_move(self, piece, next_pos):
         # Verify if is valid board position
         if len(next_pos) != 2:
+            print('next_pos size different than 2')
             return False
         next_pos = next_pos.lower()
-        if next_pos[0] not in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] or \
-           next_pos[1] not in ['1', '2', '3', '4', '5', '6', '7', '8']:
+
+        pos0_letters = next_pos[0] in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        pos0_numbers = next_pos[0] in ['1', '2', '3', '4', '5', '6', '7', '8']
+        pos1_letters = next_pos[1] in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        pos1_numbers = next_pos[1] in ['1', '2', '3', '4', '5', '6', '7', '8']
+
+        pos_letter = None
+        pos_number = None
+
+        if pos0_letters and pos1_numbers:
+            pos_letter = next_pos[0]
+            pos_number = next_pos[1]
+        elif pos0_numbers and pos1_letters:
+            pos_number = next_pos[0]
+            pos_letter = next_pos[1]
+        else:
+            print('Valid position should be a1 or 1a')
             return False
 
-        # TODO
+        piece = piece.lower()
+        if piece not in self.pieces['white']:
+            return False
+
+        return True
