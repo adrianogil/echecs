@@ -25,3 +25,7 @@ def test_pawn_initial_positions(gameboard):
     black_pawns = gameboard.get_pawns('black')
     for pawn_pos in black_pawns:
         assert int(pawn_pos[1]) == 7
+
+def test_invalid_board_position(gameboard):
+    assert gameboard.verify_valid_move('p0', 'w1') == False
+    assert gameboard.verify_valid_move('p1', 'i8') == False

@@ -63,3 +63,14 @@ class GameBoard:
             pawns_positions.append(self.pieces[color]['p' + str(p)])
 
         return pawns_positions
+
+    def verify_valid_move(self, piece, next_pos):
+        # Verify if is valid board position
+        if len(next_pos) != 2:
+            return False
+        next_pos = next_pos.lower()
+        if next_pos[0] not in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] or \
+           next_pos[1] not in ['1', '2', '3', '4', '5', '6', '7', '8']:
+            return False
+
+        # TODO
