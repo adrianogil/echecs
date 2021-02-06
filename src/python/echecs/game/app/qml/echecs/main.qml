@@ -11,10 +11,10 @@ ApplicationWindow {
     title: "Echecs"
 
 
-    // EchecsApplication {
+    EchecsApplication {
 
-    //     anchors.fill: parent
+        anchors.fill: parent
 
-    // }
+    }
 
 }

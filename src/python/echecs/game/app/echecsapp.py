@@ -1,4 +1,4 @@
-from .qmlapp import QMLApp
+from pyutils.pyside.qmlapp import QMLApp
 
 
 class EchecsApp():
