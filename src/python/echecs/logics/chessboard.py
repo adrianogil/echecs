@@ -111,6 +111,11 @@ class ChessBoard:
 
     def _get_piece(self, x=None, y=None, pos=None):
         x, y = self.get_pos(x=x, y=y, pos=pos)
+
+        if x is None or x < 0 or x >= self.board_size_x or \
+           y is None or y < 0 or y >= self.board_size_y:
+            return None
+
         return self._board[x][y]
 
     # def get_pawns(self, color='white'):
