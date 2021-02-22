@@ -1,4 +1,10 @@
 from .pieces.pawn import Pawn
+from .pieces.king import King
+from .pieces.queen import Queen
+from .pieces.rook import Rook
+from .pieces.knight import Knight
+from .pieces.bishop import Bishop
+from .boardposition import get_position
 
 
 class ChessBoard:
@@ -7,14 +13,61 @@ class ChessBoard:
         self.board_size_x = 8
         self.board_size_y = 8
 
-        self.clear_board()
+        self.reset_board()
 
-        self.add_piece(x=0, y=1, piece_obj=Pawn(color='white'))
+    def reset_board(self):
+        self.clear_board()
+        self.add_piece(pos='a2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='b2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='c2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='d2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='e2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='f2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='g2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos='h2', piece_obj=Pawn(color='white'))
+
+        self.add_piece(pos='a1', piece_obj=Rook(color='white'))
+        self.add_piece(pos='b1', piece_obj=Knight(color='white'))
+        self.add_piece(pos='c1', piece_obj=Bishop(color='white'))
+        self.add_piece(pos='d1', piece_obj=Queen(color='white'))
+        self.add_piece(pos='e1', piece_obj=King(color='white'))
+        self.add_piece(pos='f1', piece_obj=Bishop(color='white'))
+        self.add_piece(pos='g1', piece_obj=Knight(color='white'))
+        self.add_piece(pos='h1', piece_obj=Rook(color='white'))
+
+        self.add_piece(pos='a7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='b7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='c7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='d7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='e7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='f7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='g7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos='h7', piece_obj=Pawn(color='black'))
+
+        self.add_piece(pos='a8', piece_obj=Rook(color='black'))
+        self.add_piece(pos='b8', piece_obj=Knight(color='black'))
+        self.add_piece(pos='c8', piece_obj=Bishop(color='black'))
+        self.add_piece(pos='d8', piece_obj=Queen(color='black'))
+        self.add_piece(pos='e8', piece_obj=King(color='black'))
+        self.add_piece(pos='f8', piece_obj=Bishop(color='black'))
+        self.add_piece(pos='g8', piece_obj=Knight(color='black'))
+        self.add_piece(pos='h8', piece_obj=Rook(color='black'))
+
+    def get_pos(self, x=None, y=None, pos=None):
+        return get_position(
+            x=x,
+            y=y,
+            pos=pos,
+            board_size_x=self.board_size_x,
+            board_size_y=self.board_size_y
+        )
 
     def add_piece(self, piece_obj, x=None, y=None, pos=None):
+        x, y = self.get_pos(x=x, y=y, pos=pos)
         self._board[x][y] = piece_obj
         piece_obj.x = x
         piece_obj.y = y
+        piece_obj._board = self
 
     def clear_board(self):
         self._board = []
