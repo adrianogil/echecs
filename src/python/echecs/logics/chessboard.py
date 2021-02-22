@@ -6,6 +6,8 @@ from .pieces.knight import Knight
 from .pieces.bishop import Bishop
 from .boardposition import get_position
 
+from .algebraicnotation.parsenotation import parse_move
+
 
 class ChessBoard:
     def __init__(self):
@@ -17,41 +19,41 @@ class ChessBoard:
 
     def reset_board(self):
         self.clear_board()
-        self.add_piece(pos='a2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='b2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='c2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='d2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='e2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='f2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='g2', piece_obj=Pawn(color='white'))
-        self.add_piece(pos='h2', piece_obj=Pawn(color='white'))
+        self.add_piece(pos="a2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="b2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="c2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="d2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="e2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="f2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="g2", piece_obj=Pawn(color="white"))
+        self.add_piece(pos="h2", piece_obj=Pawn(color="white"))
 
-        self.add_piece(pos='a1', piece_obj=Rook(color='white'))
-        self.add_piece(pos='b1', piece_obj=Knight(color='white'))
-        self.add_piece(pos='c1', piece_obj=Bishop(color='white'))
-        self.add_piece(pos='d1', piece_obj=Queen(color='white'))
-        self.add_piece(pos='e1', piece_obj=King(color='white'))
-        self.add_piece(pos='f1', piece_obj=Bishop(color='white'))
-        self.add_piece(pos='g1', piece_obj=Knight(color='white'))
-        self.add_piece(pos='h1', piece_obj=Rook(color='white'))
+        self.add_piece(pos="a1", piece_obj=Rook(color="white"))
+        self.add_piece(pos="b1", piece_obj=Knight(color="white"))
+        self.add_piece(pos="c1", piece_obj=Bishop(color="white"))
+        self.add_piece(pos="d1", piece_obj=Queen(color="white"))
+        self.add_piece(pos="e1", piece_obj=King(color="white"))
+        self.add_piece(pos="f1", piece_obj=Bishop(color="white"))
+        self.add_piece(pos="g1", piece_obj=Knight(color="white"))
+        self.add_piece(pos="h1", piece_obj=Rook(color="white"))
 
-        self.add_piece(pos='a7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='b7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='c7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='d7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='e7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='f7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='g7', piece_obj=Pawn(color='black'))
-        self.add_piece(pos='h7', piece_obj=Pawn(color='black'))
+        self.add_piece(pos="a7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="b7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="c7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="d7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="e7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="f7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="g7", piece_obj=Pawn(color="black"))
+        self.add_piece(pos="h7", piece_obj=Pawn(color="black"))
 
-        self.add_piece(pos='a8', piece_obj=Rook(color='black'))
-        self.add_piece(pos='b8', piece_obj=Knight(color='black'))
-        self.add_piece(pos='c8', piece_obj=Bishop(color='black'))
-        self.add_piece(pos='d8', piece_obj=Queen(color='black'))
-        self.add_piece(pos='e8', piece_obj=King(color='black'))
-        self.add_piece(pos='f8', piece_obj=Bishop(color='black'))
-        self.add_piece(pos='g8', piece_obj=Knight(color='black'))
-        self.add_piece(pos='h8', piece_obj=Rook(color='black'))
+        self.add_piece(pos="a8", piece_obj=Rook(color="black"))
+        self.add_piece(pos="b8", piece_obj=Knight(color="black"))
+        self.add_piece(pos="c8", piece_obj=Bishop(color="black"))
+        self.add_piece(pos="d8", piece_obj=Queen(color="black"))
+        self.add_piece(pos="e8", piece_obj=King(color="black"))
+        self.add_piece(pos="f8", piece_obj=Bishop(color="black"))
+        self.add_piece(pos="g8", piece_obj=Knight(color="black"))
+        self.add_piece(pos="h8", piece_obj=Rook(color="black"))
 
     def get_pos(self, x=None, y=None, pos=None):
         return get_position(
@@ -59,7 +61,7 @@ class ChessBoard:
             y=y,
             pos=pos,
             board_size_x=self.board_size_x,
-            board_size_y=self.board_size_y
+            board_size_y=self.board_size_y,
         )
 
     def add_piece(self, piece_obj, x=None, y=None, pos=None):
@@ -76,101 +78,40 @@ class ChessBoard:
             self._board.append([None] * self.board_size_y)
 
     def __str__(self):
-        board_str = ''
+        board_str = ""
 
         for y in reversed(range(0, self.board_size_y)):
             for x in range(0, self.board_size_x):
                 piece = self._board[x][y]
                 if piece is None:
-                    piece = '.'
-                board_str += str(piece) + ' '
-            board_str += '\n'
+                    piece = "."
+                board_str += str(piece) + " "
+            board_str += "\n"
 
         return board_str
 
-        #     'white': [
+    def move(self, algebraic_notation_str, color="white"):
+        piece_move = parse_move(algebraic_notation_str, color=color, board=self)
 
-        #         ChessPiece(ChessPiece.PAWN, pos='a2', color=ChessBoardColor.WHITE)
-        #     ],
-        #     'black': {
-        #         'p0': 'a7',
-        #         'p1': 'b7',
-        #         'p2': 'c7',
-        #         'p3': 'd7',
-        #         'p4': 'e7',
-        #         'p5': 'f7',
-        #         'p6': 'g7',
-        #         'p7': 'h7',
-        #         'k': 'e8',
-        #         'q': 'd8',
-        #         'b0': 'c8',
-        #         'b1': 'f8',
-        #         'n0': 'b8',
-        #         'n1': 'g8',
-        #         'r0': 'a8',
-        #         'r1': 'h8'
-        #     }
-        # }
+        if piece_move is not None:
+            piece_obj = piece_move['piece']
+            next_x = piece_move['next_x']
+            next_y = piece_move['next_y']
+            if 'piece_to_be_captured' in piece_move:
+                captured_piece = piece_move['piece_to_be_captured']
+                print('Captured piece %s at %s' % (captured_piece, captured_piece.pos))
+            self._move_piece(piece_obj, x=next_x, y=next_y)
 
-        # self.pieces = {
-        #     'white': {
-        #         'p0': 'a2',
-        #         'p1': 'b2',
-        #         'p2': 'c2',
-        #         'p3': 'd2',
-        #         'p4': 'e2',
-        #         'p5': 'f2',
-        #         'p6': 'g2',
-        #         'p7': 'h2',
-        #         'k': 'e1',
-        #         'q': 'd1',
-        #         'b0': 'c1',
-        #         'b1': 'f1',
-        #         'n0': 'b1',
-        #         'n1': 'g1',
-        #         'r0': 'a1',
-        #         'r1': 'h1'
-        #     },
-        #     'black': {
-        #         'p0': 'a7',
-        #         'p1': 'b7',
-        #         'p2': 'c7',
-        #         'p3': 'd7',
-        #         'p4': 'e7',
-        #         'p5': 'f7',
-        #         'p6': 'g7',
-        #         'p7': 'h7',
-        #         'k': 'e8',
-        #         'q': 'd8',
-        #         'b0': 'c8',
-        #         'b1': 'f8',
-        #         'n0': 'b8',
-        #         'n1': 'g8',
-        #         'r0': 'a8',
-        #         'r1': 'h8'
-        #     }
-        # }
+    def _move_piece(self, piece_obj, x=None, y=None, pos=None):
+        x, y = self.get_pos(x=x, y=y, pos=pos)
+        last_x, last_y = piece_obj.pos
+        self._board[last_x][last_y] = None
+        self._board[x][y] = piece_obj
+        piece_obj.pos = (x, y)
 
-    # def add_default_pieces(self):
-    #     pass
-
-    # def update_positions(self):
-    #     self.positions = {}
-
-    #     for piece_color in ['white', 'black']:
-    #         for piece in self.pieces[piece_color]:
-    #             position = self.pieces[piece_color][piece]
-    #             self.positions[position] = (piece_color[0], piece[0])
-
-    # def print_board(self):
-    #     self.update_positions()
-
-    #     for yrow in reversed(['1', '2', '3', '4', '5', '6', '7', '8']):
-    #         line_str = ''
-    #         for xrow in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']:
-    #             line_str += self._get_str_piece(self.positions.get(xrow + yrow, None)) + ' '
-    #         print(line_str)
-
+    def _get_piece(self, x=None, y=None, pos=None):
+        x, y = self.get_pos(x=x, y=y, pos=pos)
+        return self._board[x][y]
 
     # def get_pawns(self, color='white'):
     #     pawns_positions = []
